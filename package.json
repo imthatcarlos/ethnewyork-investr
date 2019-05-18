@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "fractionalized investment for real estate, digital content, or NFTs",
   "main": "truffle.js",
-  "scripts": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
   "author": "Carlos Beltran <imthatcarlos@gmail.com>",
   "license": "",
   "devDependencies": {
@@ -17,9 +20,19 @@
     "ethereumjs-util": "^6.1.0",
     "file-api": "^0.10.4",
     "filereader": "^0.10.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.1",
     "truffle-contract": "^4.0.11",
     "truffle-hdwallet-provider": "^1.0.9",
     "web3": "^1.0.0-beta.35",
     "web3-provider-engine": "^15.0.0"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
