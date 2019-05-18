@@ -22,7 +22,7 @@ module.exports = {
     skale: {
       provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.SKALE_URL),
       gasPrice: 0,
-      network_id: "5"
+      network_id: "*"
     }
   }
 };
