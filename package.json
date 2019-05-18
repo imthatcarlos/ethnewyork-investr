@@ -1,0 +1,22 @@
+{
+  "name": "eth-invest",
+  "version": "0.0.1",
+  "description": "fractionalized investment for real estate, digital content, or NFTs",
+  "main": "truffle.js",
+  "scripts": {},
+  "author": "Carlos Beltran <imthatcarlos@gmail.com>",
+  "license": "",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-bignumber": "^3.0.0",
+    "openzeppelin-solidity": "^2.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "ethereumjs-util": "^6.1.0",
+    "truffle-contract": "^4.0.11",
+    "truffle-hdwallet-provider": "^1.0.9",
+    "web3": "^1.0.0-beta.35",
+    "web3-provider-engine": "^15.0.0"
+  }
+}
