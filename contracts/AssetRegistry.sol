@@ -21,6 +21,7 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
     address payable tokenAddress;
     bool filled;
     bool funded;
+    string fileURL;
   }
 
   struct FillableAsset {
@@ -63,7 +64,8 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
       owner: address(0),
       tokenAddress: address(0),
       filled: false,
-      funded: false
+      funded: false,
+      fileURL: ""
     }));
 
     fillableAssets.push(FillableAsset({
@@ -93,6 +95,7 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
    * @param _projectedValueUSD The PROJECTED value of the asset in USD
    * @param _timeframeMonths Time frame for the investment
    * @param _valuePerTokenCents Value of each token
+   * @return storage array id
    */
   function addAsset(
     address payable _owner,
@@ -126,7 +129,8 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
       owner: _owner,
       tokenAddress: address(token),
       filled: false,
-      funded: false
+      funded: false,
+      fileURL: ""
     });
 
     // add the record to the storage array and push the index to the hashmap
@@ -138,6 +142,19 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
     assetProjectedValuesUSD.push(_projectedValueUSD);
 
     emit AssetRecordCreated(address(token), _owner, id);
+  }
+
+  /**
+   * Creates an Asset record and adds it to storage, also creating a AssetToken contract instance to
+   * represent the asset
+   * @param _id Asset id
+   * @param _fileURL URL to asset file (img, doc, etc)
+   */
+  function addAssetData(uint _id, string calldata _fileURL) external onlyAssetOwner(_id) {
+    // sanity check, must be a valid asset record
+    require(assets[_id].owner != address(0));
+
+    assets[_id].fileURL = _fileURL;
   }
 
   /**
@@ -271,7 +288,8 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
       address owner,
       address tokenAddress,
       bool filled,
-      bool funded
+      bool funded,
+      string memory fileURL
     )
   {
     Asset storage asset = assets[_id];
@@ -280,6 +298,7 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
     tokenAddress = asset.tokenAddress;
     filled = asset.filled;
     funded = asset.funded;
+    fileURL = asset.fileURL;
   }
 
   /**
