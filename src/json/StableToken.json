@@ -785,18 +785,12 @@
     "1": {
       "events": {},
       "links": {},
-      "address": "0x4D37242e705eF1547c19d5158916e41f359C6e77",
-      "transactionHash": "0xe2f70ec430fdc8015cf6a29da423cf512efeb0e0d4581060eb63bb1f76ca7f53"
-    },
-    "1558269202244": {
-      "events": {},
-      "links": {},
-      "address": "0x0730B2dB0AfEbCf986E9f935e8b76Cf9F4e3f024",
-      "transactionHash": "0xe5ec86cd86100353108a9a7d4d74a47927ca8e6ada709c5709a0610ee82c560e"
+      "address": "0xDc9e620da26F43164da7e535FD22b109D4EC2711",
+      "transactionHash": "0x2468ed7dfb3bd869d4938e0ae50f841024ad5d3ad152acfa7a24a56b3ed2b230"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-19T12:40:09.372Z",
+  "updatedAt": "2019-05-19T12:57:34.357Z",
   "devdoc": {
     "author": "Carlos Beltran <imthatcarlos@gmail.com>",
     "methods": {

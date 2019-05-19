@@ -10316,18 +10316,12 @@
     "1": {
       "events": {},
       "links": {},
-      "address": "0xC1c2a89bCE4A15afAbcf50E3D947C500E8A652B8",
-      "transactionHash": "0xdf358988fdeccc38620d373e017382626e6167e41f66fb9e5a2089280010ae24"
-    },
-    "1558269202244": {
-      "events": {},
-      "links": {},
-      "address": "0x73f88E039BD204AF6F122d448007514d1eb16a64",
-      "transactionHash": "0x2056a76898c47a63a0969de4d78a88d546ddbec8ab7355316d4d872f5c209e9c"
+      "address": "0x01974a82638dbE86E4d62bDb0eeCbE9872c81741",
+      "transactionHash": "0x5fa492316fedd61d9c62eb2c483ab4fa610a22398705ae5c2e8777e357a50fd0"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-19T12:40:09.331Z",
+  "updatedAt": "2019-05-19T12:57:34.316Z",
   "devdoc": {
     "author": "Carlos Beltran <imthatcarlos@gmail.com>",
     "methods": {

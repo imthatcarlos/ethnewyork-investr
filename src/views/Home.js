@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Async from 'react-promise'
 import { Button } from 'rimble-ui'
+import ListingItem from './ListingItem';
 
 import getWeb3 from './../utils/getWeb3Window';
 
@@ -22,29 +23,35 @@ class Home extends Component {
   // init web3 and contracts
   async componentWillMount() {
     // data provider
-    let provider = new Web3.providers.HttpProvider(process.env.SKALE_URL);
+    let provider = new Web3.providers.HttpProvider(process.env.REACT_APP_SKALE_URL);
     let web3 = new Web3(provider);
 
-    let assetRegistryContract = contract({ ...AssetRegistry, address: contracts["development"]["AssetRegistry"] });
+    let assetRegistryContract = contract({ ...AssetRegistry, address: contracts["skale"]["AssetRegistry"] });
     assetRegistryContract.setProvider(web3.currentProvider);
 
     // contract
     let assetRegistry = await assetRegistryContract.deployed();
 
     // data
-    let count = await assetRegistry.getAssetsCount();
-    count = count.toNumber();
-    console.log(count);
+    // let count = await assetRegistry.getAssetsCount();
+    // count = count.toNumber();
+    // console.log(count);
 
-    let promises = [...Array(count).keys()].map((i) => {
-      return new Promise(async (resolve, reject) => {
-        const data = await assetRegistry.getAssetById(i);
-        resolve(data);
-      });
-    });
+    const data = await assetRegistry.getAssetById(1);
 
-    let records = Promise.all(promises);
-    console.log(records);
+    // let promises = [...Array(count).keys()].map((i) => {
+    //   return new Promise(async (resolve, reject) => {
+    //     const data = await assetRegistry.getAssetById(i + 1);
+    //     resolve(data);
+    //   });
+    // });
+    //
+    // let records = Promise.all(promises);
+    // console.log(records);
+
+    console.log(data);
+    // to render after downloding
+    //<img src={`data:image/jpeg;base64,${data}`} />
   }
 
   componentDidUpdate() {
@@ -59,9 +66,21 @@ class Home extends Component {
   render() {
     return (
       <div className="App">
-        <h1>eth-invest</h1>
-
+      <div class="header outer-container">
+        <p>Investr</p>
       </div>
+      <div class="outer-container">
+        <div class="page-inner-container">
+          <h1>Investment</h1>
+          <div class="items-container">
+            <ListingItem/>
+          </div>
+        </div>
+      </div>
+      <div class="footer outer-container">
+        <p>Copyright</p>
+      </div>
+    </div>
     );
   }
 }

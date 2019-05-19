@@ -9,6 +9,7 @@ make sure you have .env file with
 ```
 PRIVATE_KEY=
 SKALE_URL=http://157.230.148.184:8035
+REACT_APP_SKALE_URL=http://157.230.148.184:8035
 ```
 
 ```
@@ -53,6 +54,11 @@ link to asset image on skale network: DcF8ACaA9f47586CE15136f4B172C8eec93fe863/c
 (prob not working) to run transaction that shows investment lifecycle
 ```
 truffle exec scripts scripts/invest.js --network skale
+```
+
+start the app (barebones)
+```
+npm run start --network skale
 ```
 
 ## Inspiration

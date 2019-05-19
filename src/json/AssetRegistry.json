@@ -21370,18 +21370,12 @@
     "1": {
       "events": {},
       "links": {},
-      "address": "0x5aD4f4F0A91DdcBD62be289B02e9c57fAe273FE1",
-      "transactionHash": "0xc214aab376c3b3a34e98761581cb41181ab9ddf46073a99ad6c7a6d7031db9ef"
-    },
-    "1558269202244": {
-      "events": {},
-      "links": {},
-      "address": "0x58D661a12A6121D87d9F9a3C9206B64F04Bd48E5",
-      "transactionHash": "0x4c9245fa9ada6ce7b19c585e6a8757e353b957fa0cd342f4786b7030692c1c1f"
+      "address": "0x70bD69d186100e09d0076E5f53E0333c9794AdeA",
+      "transactionHash": "0x87367acc99701bc01df8aa2450a88e1af80faaf8c0940e3cb445ef56a2f782fe"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-19T12:40:09.362Z",
+  "updatedAt": "2019-05-19T12:57:34.342Z",
   "devdoc": {
     "author": "Carlos Beltran <imthatcarlos@gmail.com>",
     "methods": {
