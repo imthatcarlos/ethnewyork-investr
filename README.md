@@ -1,6 +1,8 @@
-# [eth-invest]
+# Investr [eth-invest]
 
 fractionalized investment for real estate properties, digital content, or NFTs
+
+![dash](public/investr.png)
 
 ## setup
 make sure you have .env file with
