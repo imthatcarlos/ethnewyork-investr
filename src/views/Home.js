@@ -22,8 +22,7 @@ class Home extends Component {
   // init web3 and contracts
   async componentWillMount() {
     // data provider
-    console.log(process.env.REACT_APP_PRIVATE_KEY);
-    let provider = new HDWalletProvider(process.env.REACT_APP_PRIVATE_KEY, process.env.REACT_APP_SKALE_URL);
+    let provider = new Web3.providers.HttpProvider(process.env.SKALE_URL);
     let web3 = new Web3(provider);
 
     let assetRegistryContract = contract({ ...AssetRegistry, address: contracts["development"]["AssetRegistry"] });

@@ -28,7 +28,7 @@ function addWebsocketProvider(provider, network) {
   return provider;
 }
 
-module.exports = async function getWeb3(ws = false) {
+module.exports = async function getWeb3(ws = false, onlyData = false) {
   var web3;
   try {
     const networkIdx = process.argv.indexOf('--network');
@@ -42,6 +42,9 @@ module.exports = async function getWeb3(ws = false) {
       provider = ws ?
         new Web3.providers.WebsocketProvider('ws://127.0.0.1:8545') :
         new Web3.providers.HttpProvider('http://127.0.0.1:8545');
+    } else if (onlyData) {
+      // only providing data from blockchain
+      provider = new Web3.providers.HttpProvider(infuraNodeURL(false, network));
     } else if (process.env.MNEMONIC) {
       provider = new HDWalletProvider(process.env.MNEMONIC, infuraNodeURL(false, network));
       provider = addNonceProvider(provider);

@@ -31,7 +31,7 @@ async function uploadFile(account, filePath, fileName) {
         account,
         fileName,
         bytes,
-        "bd5777ff8b5b036c45370685da4808e2ea05a28b1032442e3781bf88777e9ef0" // for these test assets, just use master key
+        process.env.PRIVATE_KEY // for these test assets, just use master key
       );
 
       resolve(link);
@@ -55,7 +55,8 @@ async function addAsset1(contracts) {
   let TIMEFRAME_MONTHS = 12;
 
   // upload file to skale
-  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset1.jpeg', 'asset1'); // @TODO hash filename
+  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset1.jpeg', 'asset1-prod-3'); // @TODO hash filename
+  console.log(`link to asset image on skale network: ${link}`);
 
   let asset1 = [
     ASSET_NAME,
@@ -69,7 +70,7 @@ async function addAsset1(contracts) {
   ];
 
   // add asset
-  console.log('adding test assets...');
+  console.log('adding property asset...');
   const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
   const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
   const id = log.length ? log[0].args.id.toNumber() : null;
@@ -80,14 +81,15 @@ async function addAsset1(contracts) {
 }
 
 async function addAsset2(contracts) {
-  let ASSET_NAME = "30 Gold St New York NY";
+  let ASSET_NAME = "Creative Content";
   let VALUE_USD = 100000; // let them all be 100k by default
   let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
   let ANNUALIZED_ROI = 15; // %
   let TIMEFRAME_MONTHS = 12;
 
   // upload file to skale
-  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset2.jpg', 'asset2'); // @TODO hash filename
+  let link = await uploadFile(contracts.accounts[0], 'src/assets/creative.jpeg', 'creative-prod-4'); // @TODO hash filename
+  console.log(`link to asset image on skale network: ${link}`);
 
   let asset1 = [
     ASSET_NAME,
@@ -101,7 +103,40 @@ async function addAsset2(contracts) {
   ];
 
   // add asset
-  console.log('adding test assets...');
+  console.log('adding creative asset');
+  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
+  const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
+  const id = log.length ? log[0].args.id.toNumber() : null;
+  console.log(`added record, id: ${id}`);
+
+  const record = await contracts.assetRegistry.getAssetById(id);
+  console.log(record);
+}
+
+async function addAsset3(contracts) {
+  let ASSET_NAME = "NFT";
+  let VALUE_USD = 100000; // let them all be 100k by default
+  let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
+  let ANNUALIZED_ROI = 15; // %
+  let TIMEFRAME_MONTHS = 12;
+
+  // upload file to skale
+  let link = await uploadFile(contracts.accounts[0], 'src/assets/kitty.jpg', 'kitty-prod-4'); // @TODO hash filename
+  console.log(`link to asset image on skale network: ${link}`);
+
+  let asset1 = [
+    ASSET_NAME,
+    VALUE_USD,
+    CAP,
+    ANNUALIZED_ROI,
+    (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
+    TIMEFRAME_MONTHS,
+    VALUE_PER_TOKEN_USD_CENTS,
+    link
+  ];
+
+  // add asset
+  console.log('adding NFT asset...');
   const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
   const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
   const id = log.length ? log[0].args.id.toNumber() : null;
@@ -112,7 +147,7 @@ async function addAsset2(contracts) {
 }
 
 module.exports = async function(callback) {
-  console.log('development.js ------');
+  console.log('assets.js ------');
 
   try {
     let contracts = await getContracts();
@@ -121,12 +156,8 @@ module.exports = async function(callback) {
     // adding assets
     await addAsset1(contracts);
     await addAsset2(contracts);
+    await addAsset3(contracts);
 
-    // giving away some DAI
-
-    // now some user can click invest()
-
-    // do stuff
     callback();
   } catch(error) {
     console.log(error);
