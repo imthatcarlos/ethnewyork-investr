@@ -22,12 +22,16 @@
     "filereader": "^0.10.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-promise": "^3.0.2",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.1",
+    "rimble-ui": "^0.8.0",
+    "styled-components": "^4.2.0",
     "truffle-contract": "^4.0.11",
     "truffle-hdwallet-provider": "^1.0.9",
     "web3": "^1.0.0-beta.35",
-    "web3-provider-engine": "^15.0.0"
+    "web3-provider-engine": "^15.0.0",
+    "web3-react": "^5.0.4"
   },
   "browserslist": [
     ">0.2%",

@@ -363,14 +363,14 @@
     "absolutePath": "/Users/carlos/Desktop/imthatcarlos/eth-invest/contracts/StableToken.sol",
     "exportedSymbols": {
       "StableToken": [
-        1778
+        1827
       ]
     },
-    "id": 1779,
+    "id": 1828,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1765,
+        "id": 1814,
         "literals": [
           "solidity",
           "^",
@@ -383,10 +383,10 @@
       {
         "absolutePath": "/Users/carlos/Desktop/imthatcarlos/eth-invest/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol",
         "file": "./../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol",
-        "id": 1766,
+        "id": 1815,
         "nodeType": "ImportDirective",
-        "scope": 1779,
-        "sourceUnit": 2898,
+        "scope": 1828,
+        "sourceUnit": 2947,
         "src": "25:89:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -397,47 +397,47 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1767,
+              "id": 1816,
               "name": "ERC20Mintable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2897,
+              "referencedDeclaration": 2946,
               "src": "239:13:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Mintable_$2897",
+                "typeIdentifier": "t_contract$_ERC20Mintable_$2946",
                 "typeString": "contract ERC20Mintable"
               }
             },
-            "id": 1768,
+            "id": 1817,
             "nodeType": "InheritanceSpecifier",
             "src": "239:13:6"
           }
         ],
         "contractDependencies": [
-          1975,
-          2781,
-          2897,
-          2966
+          2024,
+          2830,
+          2946,
+          3015
         ],
         "contractKind": "contract",
         "documentation": "@title StableToken\n@author Carlos Beltran <imthatcarlos@gmail.com>",
         "fullyImplemented": true,
-        "id": 1778,
+        "id": 1827,
         "linearizedBaseContracts": [
-          1778,
-          2897,
-          1975,
-          2781,
-          2966
+          1827,
+          2946,
+          2024,
+          2830,
+          3015
         ],
         "name": "StableToken",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1771,
+            "id": 1820,
             "name": "name",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "257:34:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -446,7 +446,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 1769,
+              "id": 1818,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "257:6:6",
@@ -458,7 +458,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "537461626c65546f6b656e",
-              "id": 1770,
+              "id": 1819,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -477,10 +477,10 @@
           },
           {
             "constant": false,
-            "id": 1774,
+            "id": 1823,
             "name": "symbol",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "295:28:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -489,7 +489,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 1772,
+              "id": 1821,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "295:6:6",
@@ -501,7 +501,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "444149",
-              "id": 1773,
+              "id": 1822,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -520,10 +520,10 @@
           },
           {
             "constant": false,
-            "id": 1777,
+            "id": 1826,
             "name": "decimals",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "327:25:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -532,7 +532,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 1775,
+              "id": 1824,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "327:4:6",
@@ -544,7 +544,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3138",
-              "id": 1776,
+              "id": 1825,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -562,7 +562,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 1779,
+        "scope": 1828,
         "src": "215:140:6"
       }
     ],
@@ -572,14 +572,14 @@
     "absolutePath": "/Users/carlos/Desktop/imthatcarlos/eth-invest/contracts/StableToken.sol",
     "exportedSymbols": {
       "StableToken": [
-        1778
+        1827
       ]
     },
-    "id": 1779,
+    "id": 1828,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1765,
+        "id": 1814,
         "literals": [
           "solidity",
           "^",
@@ -592,10 +592,10 @@
       {
         "absolutePath": "/Users/carlos/Desktop/imthatcarlos/eth-invest/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol",
         "file": "./../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol",
-        "id": 1766,
+        "id": 1815,
         "nodeType": "ImportDirective",
-        "scope": 1779,
-        "sourceUnit": 2898,
+        "scope": 1828,
+        "sourceUnit": 2947,
         "src": "25:89:6",
         "symbolAliases": [],
         "unitAlias": ""
@@ -606,47 +606,47 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1767,
+              "id": 1816,
               "name": "ERC20Mintable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2897,
+              "referencedDeclaration": 2946,
               "src": "239:13:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Mintable_$2897",
+                "typeIdentifier": "t_contract$_ERC20Mintable_$2946",
                 "typeString": "contract ERC20Mintable"
               }
             },
-            "id": 1768,
+            "id": 1817,
             "nodeType": "InheritanceSpecifier",
             "src": "239:13:6"
           }
         ],
         "contractDependencies": [
-          1975,
-          2781,
-          2897,
-          2966
+          2024,
+          2830,
+          2946,
+          3015
         ],
         "contractKind": "contract",
         "documentation": "@title StableToken\n@author Carlos Beltran <imthatcarlos@gmail.com>",
         "fullyImplemented": true,
-        "id": 1778,
+        "id": 1827,
         "linearizedBaseContracts": [
-          1778,
-          2897,
-          1975,
-          2781,
-          2966
+          1827,
+          2946,
+          2024,
+          2830,
+          3015
         ],
         "name": "StableToken",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1771,
+            "id": 1820,
             "name": "name",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "257:34:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -655,7 +655,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 1769,
+              "id": 1818,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "257:6:6",
@@ -667,7 +667,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "537461626c65546f6b656e",
-              "id": 1770,
+              "id": 1819,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -686,10 +686,10 @@
           },
           {
             "constant": false,
-            "id": 1774,
+            "id": 1823,
             "name": "symbol",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "295:28:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -698,7 +698,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 1772,
+              "id": 1821,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "295:6:6",
@@ -710,7 +710,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "444149",
-              "id": 1773,
+              "id": 1822,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -729,10 +729,10 @@
           },
           {
             "constant": false,
-            "id": 1777,
+            "id": 1826,
             "name": "decimals",
             "nodeType": "VariableDeclaration",
-            "scope": 1778,
+            "scope": 1827,
             "src": "327:25:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -741,7 +741,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 1775,
+              "id": 1824,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "327:4:6",
@@ -753,7 +753,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "3138",
-              "id": 1776,
+              "id": 1825,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -771,7 +771,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 1779,
+        "scope": 1828,
         "src": "215:140:6"
       }
     ],
@@ -785,18 +785,18 @@
     "1": {
       "events": {},
       "links": {},
-      "address": "0xdE87f92D53E17d8F27610aA806d9202a38D7B683",
-      "transactionHash": "0x28c7e609757e5fd57513410278437b54c461711d9cb5b77c2c3546e275235fca"
+      "address": "0xA5cF3910b57BfC9e1F809E5CCCfbCB5C496F4aB8",
+      "transactionHash": "0xb1901f3498c87b70040763bbd95c0367590e7393c109a8b211bbcd9dfebc3746"
     },
-    "1558196171515": {
+    "1558219180623": {
       "events": {},
       "links": {},
-      "address": "0x1cAfa7DBe0649d47229073487eabC58Cb0Da08DE",
-      "transactionHash": "0x4e8e9aceca97c779ef98503aec9f53fcd03828815ad52c3aaed4fbf2baee0db9"
+      "address": "0xF6d0060b5778c289708fc1C1D3396B32aD6117f8",
+      "transactionHash": "0xa297e9f26127ca4cfcfd5959611385c278b3ab19e2baa94fae6d486f0c98a1df"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-18T17:23:23.372Z",
+  "updatedAt": "2019-05-18T23:31:50.589Z",
   "devdoc": {
     "author": "Carlos Beltran <imthatcarlos@gmail.com>",
     "methods": {

@@ -31,7 +31,7 @@ async function uploadFile(account, filePath, fileName) {
         account,
         fileName,
         bytes,
-        "0x80b3ad797121f58582d5dbc0133266feadfa82fea497dbf9a313a3b9bca9c08f" // for these test assets, just use master key
+        "bd5777ff8b5b036c45370685da4808e2ea05a28b1032442e3781bf88777e9ef0" // for these test assets, just use master key
       );
 
       resolve(link);
@@ -47,6 +47,70 @@ async function downloadFile(link) {
   console.log(file);
 }
 
+async function addAsset1(contracts) {
+  let ASSET_NAME = "20 Water St New York NY";
+  let VALUE_USD = 100000; // let them all be 100k by default
+  let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
+  let ANNUALIZED_ROI = 15; // %
+  let TIMEFRAME_MONTHS = 12;
+
+  // upload file to skale
+  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset1.jpeg', 'asset1'); // @TODO hash filename
+
+  let asset1 = [
+    ASSET_NAME,
+    VALUE_USD,
+    CAP,
+    ANNUALIZED_ROI,
+    (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
+    TIMEFRAME_MONTHS,
+    VALUE_PER_TOKEN_USD_CENTS,
+    link
+  ];
+
+  // add asset
+  console.log('adding test assets...');
+  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
+  const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
+  const id = log.length ? log[0].args.id.toNumber() : null;
+  console.log(`added record, id: ${id}`);
+
+  const record = await contracts.assetRegistry.getAssetById(id);
+  console.log(record);
+}
+
+async function addAsset2(contracts) {
+  let ASSET_NAME = "30 Gold St New York NY";
+  let VALUE_USD = 100000; // let them all be 100k by default
+  let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
+  let ANNUALIZED_ROI = 15; // %
+  let TIMEFRAME_MONTHS = 12;
+
+  // upload file to skale
+  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset2.jpg', 'asset2'); // @TODO hash filename
+
+  let asset1 = [
+    ASSET_NAME,
+    VALUE_USD,
+    CAP,
+    ANNUALIZED_ROI,
+    (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
+    TIMEFRAME_MONTHS,
+    VALUE_PER_TOKEN_USD_CENTS,
+    link
+  ];
+
+  // add asset
+  console.log('adding test assets...');
+  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
+  const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
+  const id = log.length ? log[0].args.id.toNumber() : null;
+  console.log(`added record, id: ${id}`);
+
+  const record = await contracts.assetRegistry.getAssetById(id);
+  console.log(record);
+}
+
 module.exports = async function(callback) {
   console.log('development.js ------');
 
@@ -54,38 +118,13 @@ module.exports = async function(callback) {
     let contracts = await getContracts();
     console.log('initialized contracts');
 
-    const ASSET_NAME = "TEST ASSET 1";
-    const VALUE_USD = 100000; // let them all be 100k by default
-    const CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
-    const ANNUALIZED_ROI = 15; // %
-    const TIMEFRAME_MONTHS = 12;
+    // adding assets
+    await addAsset1(contracts);
+    await addAsset2(contracts);
 
-    let asset1 = [
-      ASSET_NAME,
-      VALUE_USD,
-      CAP,
-      ANNUALIZED_ROI,
-      (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
-      TIMEFRAME_MONTHS,
-      VALUE_PER_TOKEN_USD_CENTS
-    ];
+    // giving away some DAI
 
-    // add asset
-    // console.log('adding test assets...');
-    // const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
-    // const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
-    // const id = log.length ? log[0].args.id.toNumber() : null;
-    // console.log(`id: ${id}`);
-    //
-    // // upload file to skale
-    // let link = await uploadFile(contracts.accounts[0], 'src/assets/asset1.jpeg', 'asset1'); // @TODO hash filename
-    //
-    // // update asset on-chain
-    // await contracts.assetRegistry.addAssetData(1, link, { from: contracts.accounts[0] });
-    // const record = await contracts.assetRegistry.getAssetById(id);
-    // console.log(record);
-
-    await downloadFile('233811C6A65770A86aB20D59BD3d01CAE524D5bd/asset1');
+    // now some user can click invest()
 
     // do stuff
     callback();

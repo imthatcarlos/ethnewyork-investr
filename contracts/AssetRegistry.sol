@@ -105,7 +105,8 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
     uint _annualizedROI,
     uint _projectedValueUSD,
     uint _timeframeMonths,
-    uint _valuePerTokenCents
+    uint _valuePerTokenCents,
+    string calldata _fileURL
   ) external {
     AssetToken token = new AssetToken(
       _owner,
@@ -130,7 +131,7 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
       tokenAddress: address(token),
       filled: false,
       funded: false,
-      fileURL: ""
+      fileURL: _fileURL
     });
 
     // add the record to the storage array and push the index to the hashmap

@@ -11,7 +11,7 @@ interface IAssetRegistry {
   event AssetFullyInvested(address indexed tokenAddress, address investmentOwner);
 
   function setMainContractAddress(address _contractAddress) external;
-  function addAsset(address payable _owner, string calldata _name, uint _valueUSD, uint _cap, uint _annualizedROI, uint _projectedValueUSD, uint _timeframeMonths, uint _valuePerTokenCents) external;
+  function addAsset(address payable _owner, string calldata _name, uint _valueUSD, uint _cap, uint _annualizedROI, uint _projectedValueUSD, uint _timeframeMonths, uint _valuePerTokenCents, string calldata _fileURL) external;
   function addAssetData(uint _id, string calldata _fileURL) external;
   function updateAssetLookup(address _tokenAddress, uint _remainingSupply, uint _tokensMinted) external returns(bool);
   function fundAsset(uint _amountStable, uint _assetId) external;
