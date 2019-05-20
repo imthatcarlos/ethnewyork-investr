@@ -27,7 +27,7 @@
     "react-scripts": "2.1.1",
     "rimble-ui": "^0.8.0",
     "styled-components": "^4.2.0",
-    "truffle-contract": "^4.0.11",
+    "truffle-contract": "^4.0.16",
     "truffle-hdwallet-provider": "^1.0.9",
     "web3": "^1.0.0-beta.35",
     "web3-provider-engine": "^15.0.0",

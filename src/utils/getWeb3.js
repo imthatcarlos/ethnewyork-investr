@@ -51,7 +51,7 @@ module.exports = async function getWeb3(ws = false, onlyData = false) {
       if (ws) { provider = addWebsocketProvider(provider, network); }
     } else if (process.env.SKALE_URL) {
       provider = new HDWalletProvider(process.env.PRIVATE_KEY, process.env.SKALE_URL);
-      if (ws) { provider = addWebsocketProvider(provider, network); }
+      provider = addNonceProvider(provider);
     } else {
       return { error: true, web3: null };
     }

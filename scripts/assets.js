@@ -9,7 +9,7 @@ var FileAPI = require('file-api')
 
 // skale file storage
 const Filestorage = require('@skalenetwork/filestorage.js/src/index');
-let filestorage = new Filestorage(process.env.SKALE_URL);
+let filestorage;
 
 // let's say every token will be worth 10 cents when asset is first fractionalized
 const VALUE_PER_TOKEN_USD_CENTS = 10;
@@ -31,7 +31,7 @@ async function uploadFile(account, filePath, fileName) {
         account,
         fileName,
         bytes,
-        process.env.PRIVATE_KEY // for these test assets, just use master key
+        process.env.PRIVATE_KEY// for these test assets, just use master key
       );
 
       resolve(link);
@@ -47,85 +47,25 @@ async function downloadFile(link) {
   console.log(file);
 }
 
-async function addAsset1(contracts) {
-  let ASSET_NAME = "20 Water St New York NY";
+async function addAsset(contracts, assetName, filePath, fileNamePre) {
   let VALUE_USD = 100000; // let them all be 100k by default
   let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
   let ANNUALIZED_ROI = 15; // %
   let TIMEFRAME_MONTHS = 12;
 
   // upload file to skale
-  let link = await uploadFile(contracts.accounts[0], 'src/assets/asset1.jpeg', 'asset1-prod-3'); // @TODO hash filename
-  console.log(`link to asset image on skale network: ${link}`);
+  let fileName = fileNamePre + '-' + contracts.web3.utils.randomHex(2);
+  let link;
+  try {
+    link = await uploadFile(contracts.accounts[0], filePath, fileName);
+    console.log(`link to asset image on skale network: ${link}`);
+  } catch (error) {
+    console.log(error);
+    link = "";
+  }
 
-  let asset1 = [
-    ASSET_NAME,
-    VALUE_USD,
-    CAP,
-    ANNUALIZED_ROI,
-    (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
-    TIMEFRAME_MONTHS,
-    VALUE_PER_TOKEN_USD_CENTS,
-    link
-  ];
-
-  // add asset
-  console.log('adding property asset...');
-  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
-  const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
-  const id = log.length ? log[0].args.id.toNumber() : null;
-  console.log(`added record, id: ${id}`);
-
-  const record = await contracts.assetRegistry.getAssetById(id);
-  console.log(record);
-}
-
-async function addAsset2(contracts) {
-  let ASSET_NAME = "Creative Content";
-  let VALUE_USD = 100000; // let them all be 100k by default
-  let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
-  let ANNUALIZED_ROI = 15; // %
-  let TIMEFRAME_MONTHS = 12;
-
-  // upload file to skale
-  let link = await uploadFile(contracts.accounts[0], 'src/assets/creative.jpeg', 'creative-prod-4'); // @TODO hash filename
-  console.log(`link to asset image on skale network: ${link}`);
-
-  let asset1 = [
-    ASSET_NAME,
-    VALUE_USD,
-    CAP,
-    ANNUALIZED_ROI,
-    (VALUE_USD + calculateProjectedProfit(VALUE_USD, ANNUALIZED_ROI, TIMEFRAME_MONTHS)),
-    TIMEFRAME_MONTHS,
-    VALUE_PER_TOKEN_USD_CENTS,
-    link
-  ];
-
-  // add asset
-  console.log('adding creative asset');
-  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
-  const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
-  const id = log.length ? log[0].args.id.toNumber() : null;
-  console.log(`added record, id: ${id}`);
-
-  const record = await contracts.assetRegistry.getAssetById(id);
-  console.log(record);
-}
-
-async function addAsset3(contracts) {
-  let ASSET_NAME = "NFT";
-  let VALUE_USD = 100000; // let them all be 100k by default
-  let CAP = VALUE_USD / VALUE_PER_TOKEN_USD_CENTS;
-  let ANNUALIZED_ROI = 15; // %
-  let TIMEFRAME_MONTHS = 12;
-
-  // upload file to skale
-  let link = await uploadFile(contracts.accounts[0], 'src/assets/kitty.jpg', 'kitty-prod-4'); // @TODO hash filename
-  console.log(`link to asset image on skale network: ${link}`);
-
-  let asset1 = [
-    ASSET_NAME,
+  let asset = [
+    assetName,
     VALUE_USD,
     CAP,
     ANNUALIZED_ROI,
@@ -137,7 +77,9 @@ async function addAsset3(contracts) {
 
   // add asset
   console.log('adding NFT asset...');
-  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset1, { from: contracts.accounts[0] });
+  // if we initialize Filestorage with the same provider, we can rely on the nonce being updated
+  //const nonce = await contracts.web3.eth.getTransactionCount(contracts.accounts[0]);
+  const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset, { from: contracts.accounts[0] });
   const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
   const id = log.length ? log[0].args.id.toNumber() : null;
   console.log(`added record, id: ${id}`);
@@ -153,10 +95,18 @@ module.exports = async function(callback) {
     let contracts = await getContracts();
     console.log('initialized contracts');
 
-    // adding assets
-    await addAsset1(contracts);
-    await addAsset2(contracts);
-    await addAsset3(contracts);
+    filestorage = new Filestorage(contracts.web3.currentProvider);
+    console.log('initialized filestorage with current provider');
+
+    let assets = [
+      ['20 Water St New York NY', 'src/assets/asset1.jpeg', 'property'],
+      ['Creative Content', 'src/assets/creative.jpeg', 'creative'],
+      ['NFT', 'src/assets/kitty.jpg', 'nft']
+    ];
+
+    await addAsset(contracts, ...assets[0]);
+    await addAsset(contracts, ...assets[1]);
+    await addAsset(contracts, ...assets[2]);
 
     callback();
   } catch(error) {
