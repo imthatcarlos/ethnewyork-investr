@@ -4,6 +4,15 @@ fractionalized investment for real estate properties, digital content, or NFTs
 
 ![dash](public/investr.png)
 
+## demo
+- initial idea - tokenize real estate
+- then became fractionalized asset investment
+- ERC1155 - tokenized nfts
+
+- smart contracts - so creators can 1) tokenize assets 2) share an ENS address so users can invest DAI 3) investors can claim profits from assets once creators fund them with sponsor money
+
+- skale network - enables quick, cheap transactions. probably only Main and AssetRegistry should exist on mainnet, and all asset tokens minted in sidechain. Once we want to enable secondary markets....
+
 ## setup
 make sure you have .env file with
 ```
