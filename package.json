@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "@skalenetwork/filestorage.js": "^0.2.2",
+    "axios": "^0.18.0",
     "dotenv": "^6.0.0",
     "ethereumjs-util": "^6.1.0",
     "file-api": "^0.10.4",
-    "filereader": "^0.10.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-promise": "^3.0.2",
