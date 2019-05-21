@@ -55,7 +55,6 @@ async function uploadFile(account, data, accountPriv = null) {
     if (data.fileObj !== undefined) { // for accepting from browser - should be strategy for object
       reader.readAsArrayBuffer(data.fileObj); // => onload
     } else if (data.filePath !== null) {
-      console.log('hey from filePath')
       reader.readAsArrayBuffer(new File(data.filePath)); // => onload
     } else if (data.fileURL !== null) {
       let response = await axios.get(data.fileURL, { responseType: 'arraybuffer' });
