@@ -30,7 +30,6 @@ async function uploadFile(account, data, accountPriv = null) {
     let reader = new FileReader();
 
     const uploadBuffer = (arrayBuffer) => {
-      console.log('uploading to skale');
       try {
         const bytes = new Uint8Array(arrayBuffer);
         let link = filestorage.uploadFile(
@@ -48,7 +47,6 @@ async function uploadFile(account, data, accountPriv = null) {
 
     reader.onerror = reject;
     reader.onload = async function(e) {
-      console.log('loaded');
       uploadBuffer(reader.result);
     }
 
@@ -111,7 +109,7 @@ async function addAsset(contracts, assetName, filePath, fileTag, fileURL = null)
   const result = await contracts.assetRegistry.addAsset(contracts.accounts[0], ...asset, { from: contracts.accounts[0] });
   const log = result.logs.filter((log) => { return log.event === 'AssetRecordCreated' } );
   const id = log.length ? log[0].args.id.toNumber() : null;
-  console.log(`done - id: ${id} => `);
+  console.log(`id: ${id} => `);
 
   const record = await contracts.assetRegistry.getAssetById(id);
   console.log(record);
