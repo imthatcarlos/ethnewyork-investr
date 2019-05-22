@@ -16,6 +16,8 @@ interface IAssetToken {
   function totalSupply() external view returns(uint value);
   function timeframeMonths() external view returns(uint value);
   function projectedValueUSD() external view returns(uint);
+  function valueUSD() external view returns(uint);
+  function name() external view returns(string memory value);
 
   // openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol
   function mint(address to, uint256 tokenId) external returns (bool);

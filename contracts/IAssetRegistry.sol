@@ -21,7 +21,7 @@ interface IAssetRegistry {
   function getActiveAssetIds() external view returns(uint[] memory);
   function getActiveAssetIdsOf(address _owner) external view returns(uint[] memory);
   function getAssetsCount() external view returns(uint);
-  function getAssetById(uint _id) external view returns (address owner, address tokenAddress, bool filled, bool funded, string memory fileURL);
+  function getAssetById(uint _id) external view returns (address owner, address tokenAddress, bool filled, bool funded, string memory fileURL, string memory name, uint valueUSD);
   function getFillableAssetAddressAt(uint _id) external view returns(address payable tokenAddress);
 
   // compiler-generated getter methods

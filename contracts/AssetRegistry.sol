@@ -5,6 +5,7 @@ import "./../node_modules/openzeppelin-solidity/contracts/lifecycle/Pausable.sol
 import "./../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./IAssetRegistry.sol";
 import "./AssetToken.sol";
+import "./IAssetToken.sol";
 
 /**
  * @title AssetRegistry
@@ -279,6 +280,7 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
 
   /**
    * Returns details of the Asset with the given id
+   * also returns data associated to the token
    * @param _id Asset id
    */
   function getAssetById(uint _id)
@@ -290,16 +292,21 @@ contract AssetRegistry is IAssetRegistry, Pausable, Ownable {
       address tokenAddress,
       bool filled,
       bool funded,
-      string memory fileURL
+      string memory fileURL,
+      string memory name,
+      uint valueUSD
     )
   {
     Asset storage asset = assets[_id];
+    IAssetToken token = IAssetToken(asset.tokenAddress);
 
     owner = asset.owner;
     tokenAddress = asset.tokenAddress;
     filled = asset.filled;
     funded = asset.funded;
     fileURL = asset.fileURL;
+    name = token.name();
+    valueUSD = token.valueUSD();
   }
 
   /**
