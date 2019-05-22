@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./views/Home";
 
@@ -8,11 +8,13 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <div>
-          <Switch>
-            <Route exact path='/' component={Home}/>
-          </Switch>
-        </div>
+        <Fragment>
+          <div>
+            <Switch>
+              <Route exact path='/' component={Home}/>
+            </Switch>
+          </div>
+        </Fragment>
       </Switch>
     );
   }

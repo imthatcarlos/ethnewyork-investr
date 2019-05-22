@@ -1,55 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Async from 'react-promise'
 import { Button } from 'rimble-ui'
 import ListingItem from './ListingItem';
 
 import getWeb3 from './../utils/getWeb3Window';
+import getContracts from './../utils/getContractsWindow';
 
-const Web3 = require('web3');
-const HDWalletProvider = require('truffle-hdwallet-provider');
-const contract = require('truffle-contract');
-const Main = require('./../json/Main.json');
-const AssetRegistry = require('./../json/AssetRegistry.json');
-const StableToken = require('./../json/StableToken.json');
-const contracts = require("./../json/contracts.json");
+// skale file storage
+const Filestorage = require('@skalenetwork/filestorage.js/src/index');
 
 class Home extends Component {
   constructor(props) {
     super(props);
+
     this.componentWillMount = this.componentWillMount.bind(this);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
+
+    this.state = {
+      web3: null,
+      contracts: {},
+      assets: []
+    };
   }
 
   // init web3 and contracts
   async componentWillMount() {
-    // data provider
-    let provider = new Web3.providers.HttpProvider(process.env.REACT_APP_SKALE_URL);
-    let web3 = new Web3(provider);
+    let web3 = await getWeb3(true); // passing true to initialize web3 with http provider (or hdwallet for skale)
+    let contracts = await getContracts(web3);
+    let filestorage = new Filestorage(web3.currentProvider); // for skale
 
-    let assetRegistryContract = contract({ ...AssetRegistry, address: contracts["skale"]["AssetRegistry"] });
-    assetRegistryContract.setProvider(web3.currentProvider);
+    // retrive all assets in the registry
+    let count = await contracts.assetRegistry.getAssetsCount();
+    let promises = [...Array(count.toNumber()).keys()].map((i) => {
+      return new Promise(async (resolve, reject) => {
+        const data = await contracts.assetRegistry.getAssetById(i + 1); // indexed starting at 1
+        resolve(data);
+      });
+    });
 
-    // contract
-    let assetRegistry = await assetRegistryContract.deployed();
+    let records = await Promise.all(promises);
+    console.log(records);
 
-    // data
-    // let count = await assetRegistry.getAssetsCount();
-    // count = count.toNumber();
-    // console.log(count);
+    this.setState({
+      web3: web3,
+      contracts: contracts,
+      assets: records,
+      filestorage: filestorage
+    });
 
-    const data = await assetRegistry.getAssetById(1);
-
-    // let promises = [...Array(count).keys()].map((i) => {
-    //   return new Promise(async (resolve, reject) => {
-    //     const data = await assetRegistry.getAssetById(i + 1);
-    //     resolve(data);
-    //   });
-    // });
-    //
-    // let records = Promise.all(promises);
-    // console.log(records);
-
-    console.log(data);
     // to render after downloding
     //<img src={`data:image/jpeg;base64,${data}`} />
   }
@@ -64,23 +62,43 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-      <div class="header outer-container">
-        <p>Investr</p>
-      </div>
-      <div class="outer-container">
-        <div class="page-inner-container">
-          <h1>Investment</h1>
-          <div class="items-container">
-            <ListingItem/>
+    let content;
+    if (this.state.assets.length) {
+      let elements = this.state.assets.map((asset) => {
+        return (
+          <ListingItem data={asset} filestorage={this.state.filestorage} key={`asset-${asset.tokenAddress}`}/>
+        )
+      });
+
+      content = (
+        <Fragment>
+          <div className="items-container">
+            { elements }
           </div>
+        </Fragment>
+      );
+    } else {
+      content = (
+        <Fragment>
+          <div>Loading data...</div>
+        </Fragment>
+      );
+    }
+
+    return (
+      <Fragment>
+        <div className="App">
+        <div className="header outer-container">
+          <p>Investr</p>
+        </div>
+
+        { content }
+
+        <div className="footer outer-container">
+          <p>made with solidity, truffle, web3, + skale</p>
         </div>
       </div>
-      <div class="footer outer-container">
-        <p>Copyright</p>
-      </div>
-    </div>
+      </Fragment>
     );
   }
 }
