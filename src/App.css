@@ -73,3 +73,7 @@ input {
 .item-description-container {
   padding: 1.5em;
 }
+
+.account-infobutton {
+  float:right;
+}

@@ -1,103 +1,101 @@
 import React, { Component, Fragment } from 'react';
-import Async from 'react-promise'
+// import { ThemeProvider } from 'styled-components'
+// import theme from './theme'
 import { Button } from 'rimble-ui'
+
 import ListingItem from './ListingItem';
-
-import getWeb3 from './../utils/getWeb3Window';
-import getContracts from './../utils/getContractsWindow';
-
-// skale file storage
-const Filestorage = require('@skalenetwork/filestorage.js/src/index');
+import { shortAddress } from './../utils/numbers';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.componentWillMount = this.componentWillMount.bind(this);
-    this.componentDidUpdate = this.componentDidUpdate.bind(this);
+    this._loadAssets = this._loadAssets.bind(this);
+    this.enableMetamask = this.enableMetamask.bind(this);
 
     this.state = {
-      web3: null,
-      contracts: {},
-      assets: []
+      coinbase: null,
+      assets: null
     };
   }
 
-  // init web3 and contracts
-  async componentWillMount() {
-    let web3 = await getWeb3(true); // passing true to initialize web3 with http provider (or hdwallet for skale)
-    let contracts = await getContracts(web3);
-    let filestorage = new Filestorage(web3.currentProvider); // for skale
+  componentDidMount() {
+    this._loadAssets();
+  }
 
+  async _loadAssets() {
     // retrive all assets in the registry
-    let count = await contracts.assetRegistry.getAssetsCount();
+    let count = await this.props.contracts.assetRegistry.getAssetsCount();
     let promises = [...Array(count.toNumber()).keys()].map((i) => {
       return new Promise(async (resolve, reject) => {
-        const data = await contracts.assetRegistry.getAssetById(i + 1); // indexed starting at 1
+        const data = await this.props.contracts.assetRegistry.getAssetById(i + 1); // indexed starting at 1
         resolve(data);
       });
     });
 
     let records = await Promise.all(promises);
-    console.log(records);
-
-    this.setState({
-      web3: web3,
-      contracts: contracts,
-      assets: records,
-      filestorage: filestorage
-    });
-
-    // to render after downloding
-    //<img src={`data:image/jpeg;base64,${data}`} />
+    this.setState({ assets: records });
   }
 
-  componentDidUpdate() {
-    // window.torus.communicationMux.getStream('status').on('data', function(status) {
-    //   if (status.loggedIn) {
-    //     console.log('hi!');
-    //   }
-    //   console.log('==============');
-    // });
+  async enableMetamask(e) {
+    e.preventDefault();
+
+    // if modern dapp browser, must request access
+    //if (window.ethereum) { await this.props.web3Context.enable(); }
+
+    this.props.web3Context.setConnector('Metamask');
+
+    console.log(this.props.web3Context.account);
+    //this.setState({ coinbase: this.props.web3Context.account });
   }
 
   render() {
-    let content;
-    if (this.state.assets.length) {
-      let elements = this.state.assets.map((asset) => {
+    let mainContent;
+    if (this.state.assets === null) {
+      mainContent = 'loading assets...'
+    } else {
+      let items = this.state.assets.map((asset) => {
         return (
-          <ListingItem data={asset} filestorage={this.state.filestorage} key={`asset-${asset.tokenAddress}`}/>
-        )
+          <ListingItem data={asset} filestorage={this.props.filestorage} key={`asset-${asset.tokenAddress}`}/>
+        );
       });
 
-      content = (
+      mainContent = (
         <Fragment>
           <div className="items-container">
-            { elements }
+            { items }
           </div>
         </Fragment>
       );
+    }
+
+    let accountInfo;
+    if (this.state.coinbase) {
+      accountInfo = ( <p>{ shortAddress(this.state.coinbase) }</p> );
     } else {
-      content = (
-        <Fragment>
-          <div>Loading data...</div>
-        </Fragment>
+      accountInfo = (
+        <Button size={'small'} onClick={(event) => this.enableMetamask(event)}>
+          Enable metamask
+        </Button>
       );
     }
 
     return (
       <Fragment>
         <div className="App">
-        <div className="header outer-container">
-          <p>Investr</p>
-        </div>
+          <div className="header outer-container">
+            <p>Investr</p>
+            <div className="account-info">
+              { accountInfo }
+            </div>
+          </div>
 
-        { content }
+          { mainContent }
 
-        <div className="footer outer-container">
-          <p>made with solidity, truffle, web3, + skale</p>
+          <div className="footer outer-container">
+            <p>made with solidity, truffle, web3, + skale</p>
+          </div>
         </div>
-      </div>
       </Fragment>
     );
   }
