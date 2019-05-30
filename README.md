@@ -1,4 +1,4 @@
-# Investr [eth-invest]
+# Investr | Asset Tokenization
 
 fractionalized investment for real estate properties, digital content, or NFTs
 
@@ -21,10 +21,15 @@ SKALE_URL=http://157.230.148.184:8035
 REACT_APP_SKALE_URL=http://157.230.148.184:8035
 ```
 
+create contracts.json file in root directory and `src/json` with content `{}`
+
 ```
 npm install
+
 rm -rf build
 truffle compile
+
+echo "{}" | tee -a contracts.json src/json/contracts.json
 truffle migrate --network skale --reset
 ```
 
@@ -72,27 +77,3 @@ npm run start --network skale
 
 ## Inspiration
 Originally something meant for real estate and providing an option to invest in otherwise too expensive assets, but that space is too complicated. Slowly became the idea to give people the chance to monetize their digital content and give back to their social media following at the same time by letting followers purchase shares of sponsored content so that once the sponsorship money comes in, creators can disperse some of it to the original backers
-
-## What it does
-Very little. There's some smart contracts that let a creator add assets to a registry, which in turns creates an ERC20 token that they can then share (or with ENS) to their followers so that they in turn can invest in by calling `invest()` on the `Main` contract with the token address. Once the creator funds the token by sending DAI to it, investors can call `claimFundsAndBurn()` on the token to receive their share of the projected profit.
-
-Migration scripts deploy the contracts to the skale network
-
-`scripts/assets.js` shows how to add an asset to the registry, and also uses skale's file storage system to store an image file to include in the registry record.
-
-`scripts/invest.js` is supposed to show the typical flow in terms of smart contract transactions. There's some comments above each step
-
-## How I built it
-Solidity contracts, truffle, web3, and started adding the react part.
-
-## Challenges I ran into
-Trying to do too much. Smart contracts are more complicated than they need to be for this demo, frontend is not my thing, and could've probably used some more help
-
-## Accomplishments that I'm proud of
-Getting the smart contract interactions to actually work
-
-## What I learned
-You can't do everything
-
-## What's next for investr
-Finishing the frontend that shows all available assets and lets the user invest and then claim their profits so this is a more complete demo showing faster transaction times on Skale.
